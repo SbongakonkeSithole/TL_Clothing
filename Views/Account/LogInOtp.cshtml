@@ -1,0 +1,87 @@
+﻿@model TL_Clothing.ViewModels.OneTimePinVM
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Verification</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+      }
+      .container h2 {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .container input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+        transition: border-color 0.3s ease-in-out;
+      }
+      .container input[type="text"]:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+      .container button {
+        width: 100%;
+        padding: 10px;
+        background-color: #003261;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+      .container button:hover {
+        background-color: #003261;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>OTP Verification</h2>
+        <form asp-action="LogInOtp" asp-controller="Account" method="post">
+        <input
+            asp-for="OTP"
+          type="text"
+          id="otp"
+          name="otp"
+          placeholder="Enter OTP"
+          required
+        />
+        <button type="submit">Verify</button>
+      </form>
+    </div>
+
+@*     <script>
+      document
+        .getElementById("otpForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const otp = document.getElementById("otp").value;
+          alert(`OTP entered: ${otp}`);
+          // You can add further processing here, such as sending the OTP to the server for verification
+        });
+    </script> *@
+  </body>
+</html>

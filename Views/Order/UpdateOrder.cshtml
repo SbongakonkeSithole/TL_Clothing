@@ -1,0 +1,143 @@
+﻿@model TL_Clothing.Models.Order
+
+@{
+    ViewData["Title"] = "UpdateOrder";
+    Layout = "_LayoutLogin";
+}
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Update</title>
+    <!-- Favicon -->
+    <link href="~/images/img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: white;
+        }
+
+        header {
+            background-color: #D19C97;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .main-order {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .order-details {
+            margin: 20px 0;
+        }
+
+            .order-details h4 {
+                margin-bottom: 10px;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        img {
+            max-width: 100px;
+        }
+    </style>
+</head>
+<hr />
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="UpdateOrder" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="Street" />
+                        <input type="hidden" asp-for="City" />
+                        <input type="hidden" asp-for="State" />
+                        <input type="hidden" asp-for="Country" />
+                        <input type="hidden" asp-for="ZipCode" />
+                        <input type="hidden" asp-for="Deliver" />
+                        <input type="hidden" asp-for="OrderNumber" class="form-control" />
+                        <div class="form-group">
+                            <label asp-for="OrderNumber" class="control-label"></label>
+                            <input asp-for="OrderNumber" disabled class="form-control" />
+                            <span asp-validation-for="OrderNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TotalPrice" class="control-label"></label>
+                            <input asp-for="TotalPrice" disabled class="form-control" />
+                            <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DateCreated" class="control-label"></label>
+                            <input asp-for="DateCreated" disabled class="form-control" />
+                            <span asp-validation-for="DateCreated" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OrderStatus" class="control-label"></label>
+                            <select class="form-control" asp-for="OrderStatus">
+                                <option value="ORDER RECIEVED">ORDER RECIEVED</option>
+                                <option value="PREPARING ORDER">PREPARING ORDER</option>
+                                <option value="OUT FOR DELIVERY">OUT FOR DELIVERY</option>
+                                <option value="ORDER DELIVERED">ORDER DELIVERED</option>
+                            </select>
+                            <span asp-validation-for="OrderStatus" class="text-danger"></span>
+                        </div>
+                        <div class="mt-3">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                            <a class="btn btn-secondary" asp-action="GetAllOrder">Back to List</a>
+                        </div>
+                      
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

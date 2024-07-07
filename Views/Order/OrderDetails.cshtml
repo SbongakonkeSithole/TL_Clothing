@@ -1,0 +1,154 @@
+﻿@model TL_Clothing.Models.Order
+
+@{
+    ViewData["Title"] = "OrderDetails";
+    Layout = "_LayoutLogin";
+}
+
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Favicon -->
+    <link href="~/images/img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+</head>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    CUSTOMER
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.User.Name)     @Html.DisplayFor(model => model.User.Surname)
+                </dd>
+                <dt class="col-sm-3">
+                  ORDER NUMBER
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.OrderNumber)
+                </dd>
+                <dt class="col-sm-3">
+                   ORDER STATUS
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.OrderStatus)
+                </dd>
+                <dt class="col-sm-3">
+                    AMOUNT
+                </dt>
+                <dd class="col-sm-9">
+                   R @Html.DisplayFor(model => model.TotalPrice)
+                </dd>
+                <dt class="col-sm-3">
+                  ORDER CREATED DATE
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DateCreated)
+                </dd>
+                <dt class="col-sm-3">
+                   LAST STATUS UPDATE
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DateUpdated)
+                </dd>
+                <dt class="col-sm-3">
+                   STREET
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Street)
+                </dd>
+                <dt class="col-sm-3">
+                   CITY
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.City)
+                </dd>
+                <dt class="col-sm-3">
+                   STATE
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.State)
+                </dd>
+                <dt class="col-sm-3">
+                   ZIPCODE
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.ZipCode)
+                </dd>
+                <dt class="col-sm-3">
+                   COUNTRY
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Country)
+                </dd>
+                <dt class="col-sm-3">
+                   DELIVERY
+                </dt>
+                <dd class="col-sm-9">
+                    @if (Model.Deliver == true)
+                    {
+                        <p>YES</p>
+                    }
+                    else
+                    {
+                        <p>NO</p>
+                    }
+                 
+                </dd>
+            </dl>
+
+            <h5>Order Items</h5>
+            <hr />
+            @foreach (var item in Model.OrderItems)
+            {
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>Product Name:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        @item.Product.ProductName
+                    </div>
+                    <div class="col-sm-3">
+                        <strong>Product Quantity:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        @item.ProductQuantity
+                    </div>
+                    <div class="col-sm-3">
+                        <strong>Size:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        @item.Product.Size
+                    </div>
+                    <div class="col-sm-3">
+                        <strong>Color:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        @item.Product.Color
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="mt-3">
+        <a class="btn btn-primary" asp-action="UpdateOrder" asp-route-orderNumber="@Model.OrderNumber">Update</a>
+        <a class="btn btn-secondary" asp-action="GetAllOrder">Back to List</a>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

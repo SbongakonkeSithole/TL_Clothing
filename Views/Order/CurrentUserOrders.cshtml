@@ -1,0 +1,203 @@
+﻿@model IEnumerable<TL_Clothing.Models.Order>
+@{
+    Layout = "_Layout";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Customer> SignInManager
+@inject UserManager<Customer> UserManager
+@inject IUnitOfWork _unitofwork
+@{
+    var cat = _unitofwork.Category.GetAll();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Details</title>
+    <!-- Favicon -->
+    <link href="~/images/img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: white;
+        }
+
+        header {
+            background-color: #D19C97;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .main-order {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .order-details {
+            margin: 20px 0;
+        }
+
+            .order-details h4 {
+                margin-bottom: 10px;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        img {
+            max-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
+                    <h6 class="m-0">Categories</h6>
+                    <i class="fa fa-angle-down text-dark"></i>
+                </a>
+                <nav class="collapse  navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
+                    <div class="navbar-nav w-100 overflow-y-auto" style="height: 150px;">
+                        @foreach (var t in cat)
+                        {
+                            <a href="" class="nav-item nav-link">@t.CategoryName</a>
+                        }
+                    </div>
+
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">TL</span>Clothing</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a asp-action="Index" asp-controller="Home" class="nav-item nav-link">Home</a>
+                            <a href="shop.html" class="nav-item nav-link">Shop</a>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="contact.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    My Account
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="personal_details.html">Personal Details</a>
+                                    <a class="dropdown-item" asp-action="GetUserOrders" asp-controller="Order">Orders</a>
+                                    <a class="dropdown-item" asp-action="TrackOrder" asp-controller="Order">Track Order</a>
+                                </div>
+                            </li>
+
+                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        </div>
+                        <div class="navbar-nav ml-auto py-0">
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <p class="nav-item nav-link">Welcome, @UserManager.GetUserName(User)</p>
+                                <a asp-action="Logout" asp-controller="Account" class="nav-item nav-link">Logout</a>
+                            }
+                            else
+                            {
+                                <a asp-action="Login" asp-controller="Account" class="nav-item nav-link">Login</a>
+                                <a asp-action="Register" asp-controller="Account" class="nav-item nav-link">Register</a>
+                            }
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    @foreach(var order in Model)
+    {
+        <div class="main-order">
+            <section class="order-details">
+                <h4>Order @order.OrderNumber</h4>
+                <p>Order Status: @order.OrderStatus</p>
+                <p>Date Created:  @order.DateCreated.ToString("MMMM dd, yyyy 'at' h:mm tt")</p>
+                @if (order.DateCreated < order.DateUpdated)
+                {
+
+                    <p>Last Status Updated Date:  @order.DateUpdated.ToString("MMMM dd, yyyy 'at' h:mm tt")</p>
+                }
+                <p>Total Price: R @order.TotalPrice</p>
+
+                <h4>Order Items</h4>
+                <table>
+                    <thead>
+                        <tr class="text-dark">
+                            <th></th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in order.OrderItems)
+                        {
+                            <tr>
+                                <td><img src="@i.Product.ImageUrl" style="width: 50px;height:50px" alt="Product Image 1" /></td>
+                                <td>@i.Product.ProductName</td>
+                                <td>@i.ProductQuantity</td>
+                                <td>R @i.Total</td>
+                                @if (order.OrderStatus == "ORDER DELIVERED")
+                                {
+                                    <td><a href="#">REVIEW</a></td>
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    }
+   
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

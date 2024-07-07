@@ -1,0 +1,101 @@
+﻿@model TL_Clothing.ViewModels.TrackVm
+@{
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order</title>
+    <!-- Favicon -->
+    <link href="~/images/img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <style>
+     
+        .container{
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+        }
+        .order-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+            .order-form h2 {
+                margin-top: 0;
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .order-form label {
+                font-size: 16px;
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            .order-form input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-bottom: 15px;
+            }
+
+            .order-form input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 12px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                width: 100%;
+            }
+
+                .order-form input[type="submit"]:hover {
+                    background-color: #45a049;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="order-form">
+            <h2>Track Your Order</h2>
+            <form asp-action="TrackOrder" asp-controller="Order" method="post">
+                <label for="order-number">Enter your order number:</label>
+                <input type="text" asp-for="OrderNumber" placeholder="Order number..." required>
+                <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" type="submit">
+
+                    Track Order
+
+                </button>
+            </form>
+        </div>
+    </div>
+  
+</body>
+</html>
+

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TL_Clothing.Models.Order>
+
+@{
+    ViewData["Title"] = "GetAllOrder";
+    Layout = "_LayoutLogin";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>CUSTOMER</th>
+            <th>ORDER NO.</th>
+            <th>ORDER DATE</th>
+            <th>STATUS</th>
+            <th>AMOUNT</th>
+         @*    <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaxiNumber)
+            </th> *@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)  @Html.DisplayFor(modelItem => item.User.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUpdated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+               R @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.Store)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaxiNumber)
+            </td> *@
+            <td>
+                <a asp-action="UpdateOrder" asp-route-orderNumber="@item.OrderNumber">Edit</a> |
+                    <a asp-action="OrderDetails" asp-route-orderNumber="@item.OrderNumber">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderNumber">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
