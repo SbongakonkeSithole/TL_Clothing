@@ -6,6 +6,7 @@
 @inject IUnitOfWork _unitofwork
 @{
     var cat = _unitofwork.Category.GetAll();
+    string size = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -141,15 +142,15 @@
                         <small class="fas fa-star-half-alt"></small>
                         <small class="far fa-star"></small>
                     </div>
-                    <small class="pt-1">(50 Reviews)</small>
+                    <small class="pt-1">(@Model.ProductReview.Count() Reviews)</small>
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">R @Model.Product.Price</h3>
                 <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
-             @*    <div class="d-flex mb-3">
-                    <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
-                    <form>
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:      @Model.Product.Size</p>
+              @*       <form>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-1" name="size">
+                            <input type="radio"  class="custom-control-input" id="size-1" name="size">
                             <label class="custom-control-label" for="size-1">XS</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
@@ -157,44 +158,44 @@
                             <label class="custom-control-label" for="size-2">S</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-3" name="size">
+                            <input type="radio"  class="custom-control-input" id="size-3" name="size">
                             <label class="custom-control-label" for="size-3">M</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-4" name="size">
+                            <input type="radio"  class="custom-control-input" id="size-4" name="size">
                             <label class="custom-control-label" for="size-4">L</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-5" name="size">
+                            <input type="radio"  class="custom-control-input" id="size-5" name="size">
                             <label class="custom-control-label" for="size-5">XL</label>
                         </div>
-                    </form>
+                    </form> *@
                 </div>
                 <div class="d-flex mb-4">
-                    <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
-                    <form>
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Colors: @Model.Product.Color</p>
+                    @* <form>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-1" name="color">
+                            <input type="radio"  class="custom-control-input" id="color-1" name="color">
                             <label class="custom-control-label" for="color-1">Black</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-2" name="color">
+                            <input type="radio"  class="custom-control-input" id="color-2" name="color">
                             <label class="custom-control-label" for="color-2">White</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-3" name="color">
+                            <input type="radio"  class="custom-control-input" id="color-3" name="color">
                             <label class="custom-control-label" for="color-3">Red</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-4" name="color">
+                            <input type="radio"  class="custom-control-input" id="color-4" name="color">
                             <label class="custom-control-label" for="color-4">Blue</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="color-5" name="color">
+                            <input type="radio"  class="custom-control-input" id="color-5" name="color">
                             <label class="custom-control-label" for="color-5">Green</label>
                         </div>
-                    </form>
-                </div> *@
+                    </form> *@
+                </div>
                 <div class="d-flex align-items-center mb-4 pt-2">
 
                     @if (Model.Product.Quantity > 0)
@@ -224,7 +225,7 @@
             <div class="col">
                 <div class="nav nav-tabs justify-content-center border-secondary mb-4">
                     <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Reviews (0)</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Reviews (@Model.ProductReview.Count())</a>
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">
@@ -234,53 +235,58 @@
                     </div>
                     <div class="tab-pane fade" id="tab-pane-2">
                         <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
-                                <div class="media mb-4">
-                                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                    <div class="media-body">
-                                        <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                        <div class="text-primary mb-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <i class="far fa-star"></i>
+                            @foreach(var item in Model.ProductReview)
+                            {
+                                <div class="col-md-12">
+                                   
+                                    <div class="media mb-4">
+                                       
+                                        <div class="media-body">
+                                            <h6>@item.User.Name @item.User.Surname<small> - <i>01 Jan 2045</i></small></h6>
+                                            <div class="text-primary mb-2">
+                                                @for(var i = 0; i < item.Rating; i++)
+                                                {
+                                                    <i class="fas fa-star"></i>
+                                                }
+                                                @for(var o = item.Rating; o < 5; o++)
+                                                {
+                                                    <i class="far fa-star"></i>
+                                                }
+                                            
+                                            </div>
+                                            <p>@item.Review.</p>
                                         </div>
-                                        <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
                                     </div>
                                 </div>
-                            </div>
+                            }
+                            
                             <div class="col-md-6">
-                                <h4 class="mb-4">Leave a review</h4>
+                                @* <h4 class="mb-4">Leave a review</h4>
                                 <small>Your email address will not be published. Required fields are marked *</small>
-                                <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Your Rating * :</p>
-                                    <div class="text-primary">
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
+                           
+                                <form asp-action="Create" asp-controller="Review">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="@Model.ProductReview.ProductId" />
+                                    <input type="hidden" asp-for="@Model.ProductReview.UserId" />
+                                    <input type="hidden" asp-for="@Model.ProductReview.ReviewId" />
+                                    <div class="d-flex my-3">
+                                        <p class="mb-0 mr-2">Your Rating * :</p>
+                                        <div class="text-primary">
+                                            <input type="radio" asp-for="@Model.ProductReview.Rating" value="5" id="star5"><label for="star5" class="fas fa-star"></label>
+                                            <input type="radio" asp-for="@Model.ProductReview.Rating" value="4" id="star4"><label for="star4" class="fas fa-star"></label>
+                                            <input type="radio" asp-for="@Model.ProductReview.Rating" value="3" id="star3"><label for="star3" class="fas fa-star"></label>
+                                            <input type="radio" asp-for="@Model.ProductReview.Rating" value="2" id="star2"><label for="star2" class="fas fa-star"></label>
+                                            <input type="radio" asp-for="@Model.ProductReview.Rating" value="1" id="star1"><label for="star1" class="fas fa-star"></label>
+                                        </div>
                                     </div>
-                                </div>
-                                <form>
                                     <div class="form-group">
                                         <label for="message">Your Review *</label>
-                                        <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Your Name *</label>
-                                        <input type="text" class="form-control" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Your Email *</label>
-                                        <input type="email" class="form-control" id="email">
+                                        <textarea asp-for="@Model.ProductReview.Review" class="form-control"></textarea>
                                     </div>
                                     <div class="form-group mb-0">
                                         <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
                                     </div>
-                                </form>
+                                </form> *@
                             </div>
                         </div>
                     </div>

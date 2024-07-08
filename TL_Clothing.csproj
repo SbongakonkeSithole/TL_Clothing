@@ -25,9 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Data\" />
-    <Folder Include="Models\" />
     <Folder Include="wwwroot\images\category\" />
     <Folder Include="wwwroot\images\producturl\" />
     <Folder Include="wwwroot\images\product\" />

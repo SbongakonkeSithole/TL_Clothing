@@ -11,6 +11,7 @@ namespace TL_Clothing.Repositories
         public ICategory Category { get; private set; }
         public IProduct Product { get; private set; }
         public IProductImage ProductImage { get; private set; }
+        public IProductReview ProductReview { get; private set; }
         public UnitOfWork(SqlDbContext db)
         {
             _db = db;
@@ -18,6 +19,7 @@ namespace TL_Clothing.Repositories
             Product = new ProductRepo(_db);
             ProductImage = new ProductImageRepo(_db);
             Category = new CategoryRepo(_db);
+            ProductReview = new ProductReviewRepo(_db);
         }
         public void Save()
         {

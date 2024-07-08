@@ -8,6 +8,7 @@ namespace TL_Clothing.Interface
         ICategory Category { get; }
         IProduct Product { get; }
         IProductImage ProductImage { get; }
+        IProductReview ProductReview { get; }
         void Save();
     }
 }

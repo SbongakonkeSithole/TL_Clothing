@@ -269,3 +269,4 @@ C:\Users\thusi\Downloads\TL_Clothing\bin\Debug\net8.0\Microsoft.JSInterop.dll
 C:\Users\thusi\Downloads\TL_Clothing\bin\Debug\net8.0\bundleconfig.json
 C:\Users\thusi\Downloads\TL_Clothing\obj\Debug\net8.0\scopedcss\Views\Shared\_LayoutLogin.cshtml.rz.scp.css
 C:\Users\thusi\Downloads\TL_Clothing\bin\Debug\net8.0\PayStack.Net.dll
+C:\Users\thusi\Downloads\TL_Clothing\obj\Debug\net8.0\TL_Clothing.sourcelink.json

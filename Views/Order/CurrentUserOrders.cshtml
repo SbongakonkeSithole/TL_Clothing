@@ -158,7 +158,7 @@
                 <h4>Order @order.OrderNumber</h4>
                 <p>Order Status: @order.OrderStatus</p>
                 <p>Date Created:  @order.DateCreated.ToString("MMMM dd, yyyy 'at' h:mm tt")</p>
-                @if (order.DateCreated < order.DateUpdated)
+                @if (order.DateCreated.TimeOfDay < order.DateUpdated.TimeOfDay)
                 {
 
                     <p>Last Status Updated Date:  @order.DateUpdated.ToString("MMMM dd, yyyy 'at' h:mm tt")</p>
@@ -185,7 +185,7 @@
                                 <td>R @i.Total</td>
                                 @if (order.OrderStatus == "ORDER DELIVERED")
                                 {
-                                    <td><a href="#">REVIEW</a></td>
+                                    <td><a asp-action="Create" asp-controller="Review" asp-route-productId="@i.ProductId">REVEW</a></td>
                                 }
 
                             </tr>

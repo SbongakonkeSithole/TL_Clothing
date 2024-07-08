@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using TL_Clothing.Interface;
 using TL_Clothing.Models;
 using TL_Clothing.ViewModels;
@@ -10,11 +12,13 @@ namespace TL_Clothing.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly UserManager<Customer> _usermanager;
 
-        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment, UserManager<Customer> usermanager)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
+            _usermanager = usermanager;
         }
 
         public IActionResult Index()
@@ -123,11 +127,21 @@ namespace TL_Clothing.Controllers
         {
             var product=_unitOfWork.Product.Get(x=>x.ProductId == id);
             var images =_unitOfWork.ProductImage.GetAll(x=>x.ProductId==id);
+            var username = _usermanager.GetUserName(User);
+
+            var user = _unitOfWork.Customer.Get(x => x.UserName == username);
+
+          var review=_unitOfWork.ProductReview.GetAll(x=>x.ProductId==id);
+            foreach(var item in review)
+            {
+                item.User = _unitOfWork.Customer.Get(c => c.Id == item.UserId);
+            }
 
             ProductDetailsVm vm = new ProductDetailsVm() 
             { 
               Product = product,
-              Images = images
+              Images = images,
+              ProductReview=review,
             };
 
             if(vm.Product is not null)
